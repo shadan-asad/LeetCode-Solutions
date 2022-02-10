@@ -1,4 +1,4 @@
-import java.util.Queue;
+import java.util.*;
 
 public class GFG_ReverseFirstKElementsofQueue {
     class GfG {
