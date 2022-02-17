@@ -20,7 +20,6 @@ public class _733_FloodFill {
                 ifConnected(image, i,j-1, sr, sc, newColor, st);
                 ifConnected(image, i,j+1, sr, sc, newColor, st);
             }
-
             image[sr][sc] = newColor;
             return image;
         }
