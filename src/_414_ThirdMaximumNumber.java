@@ -1,7 +1,7 @@
 import java.util.HashSet;
 
 public class _414_ThirdMaximumNumber {
-    import java.util.*;
+
     class Solution {
         public int thirdMax(int[] nums) {
             HashSet<Integer> set = new HashSet<>();
