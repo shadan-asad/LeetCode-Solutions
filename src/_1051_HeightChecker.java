@@ -33,7 +33,6 @@ public class _1051_HeightChecker {
                 R[j] = arr[m+1+j];
 
             int i = 0, j = 0, k = l;
-
             while(i < L.length && j < R.length) {
                 if(L[i] <= R[j]) {
                     arr[k] = L[i];
