@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Stack;
 
 /**
  * Definition for a binary tree node.
@@ -17,23 +16,21 @@ import java.util.Stack;
  * }
  */
 class Solution {
+    ArrayList<TreeNode> list = new ArrayList<TreeNode>();
     public TreeNode balanceBST(TreeNode root) {
-        ArrayList<TreeNode> list = new ArrayList<TreeNode>();
-        Stack<TreeNode> st = new Stack<TreeNode>();
-        while(root != null || !st.isEmpty()) {
-            while(root != null) {
-                st.push(root);
-                root = root.left;
-            }
-            root = st.pop();
-            list.add(root);
-            root = root.right;
-        }
+        inorder(root);
 
         TreeNode node = balance(list, 0, list.size()-1);
         return node;
     }
+    private void inorder(TreeNode root) {
+        if(root == null)
+            return;
 
+        inorder(root.left);
+        list.add(root);
+        inorder(root.right);
+    }
     private TreeNode balance(ArrayList<TreeNode> list, int i, int j) {
         if(i > j) {
             return null;
@@ -43,7 +40,6 @@ class Solution {
 
         node.left = balance(list, i, mid-1);
         node.right = balance(list, mid+1, j);
-
 
         return node;
     }
