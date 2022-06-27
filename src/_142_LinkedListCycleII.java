@@ -20,16 +20,19 @@ public class _142_LinkedListCycleII {
                 slow = slow.next;
                 fast = fast.next.next;
 
-                if (slow == fast){
-                    do {
-                        if (head == slow.next) {
-                            return head;
-                        }
-                        slow = slow.next;
-                    } while (slow != fast);
+                if (slow == fast)
+                    break;
+            }
 
-                    head = head.next;
-                }
+            while (fast.next != null && fast.next.next != null) {
+                do {
+                    if (head == slow.next) {
+                        return head;
+                    }
+                    slow = slow.next;
+                } while (slow != fast);
+
+                head = head.next;
             }
 
             return null;
