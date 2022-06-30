@@ -24,23 +24,22 @@ public class _102_BinaryTreeLevelOrderTraversal {
             List<List<Integer>> ans = new ArrayList<List<Integer>>();
             if(root == null)
                 return ans;
+
             ArrayDeque<TreeNode> q = new ArrayDeque<>();
             q.add(root);
             while(!q.isEmpty()) {
-                ArrayList<TreeNode> list = new ArrayList<>();
+                int n = q.size();
                 ArrayList<Integer> cur = new ArrayList<Integer>();
-                while(!q.isEmpty()) {
-                    cur.add(q.peek().val);
-                    list.add(q.pop());
+
+                for(int i = 0; i < n; i++) {
+                    if(q.peek().left != null)
+                        q.add(q.peek().left);
+                    if(q.peek().right != null) {
+                        q.add(q.peek().right);
+                    }
+                    cur.add(q.pop().val);
                 }
                 ans.add(cur);
-                for(TreeNode t : list) {
-                    if(t.left != null)
-                        q.add(t.left);
-                    if(t.right != null) {
-                        q.add(t.right);
-                    }
-                }
             }
             return ans;
         }
