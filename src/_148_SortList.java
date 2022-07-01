@@ -29,7 +29,6 @@ public class _148_SortList {
 
         }
 
-
         public ListNode mergeList(ListNode list1, ListNode list2) {
             if (list1 == null)
                 return null;
