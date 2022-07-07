@@ -15,6 +15,5 @@ public class _496_NextGreaterElementI {
             }
             return nums1;
         }
-
     }
 }
