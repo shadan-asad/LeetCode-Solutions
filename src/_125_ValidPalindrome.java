@@ -1,4 +1,5 @@
 public class _125_ValidPalindrome {
+    //Brute force approach
     class Solution {
         public boolean isPalindrome(String s) {
             if(s.length() == 1)
