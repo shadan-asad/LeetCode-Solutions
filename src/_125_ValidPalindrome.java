@@ -1,26 +1,21 @@
 public class _125_ValidPalindrome {
-    //Brute force approach
+    //Recusive solution
     class Solution {
         public boolean isPalindrome(String s) {
-            if(s.length() == 1)
+            s = s.replaceAll("[^a-zA-Z0-9]","");
+            s = s.toLowerCase();
+            return palin(s, 0, s.length()-1);
+        }
+        private boolean palin(String s, int l, int r) {
+            if(l > r)
                 return true;
 
-            String str = "";
-            for(int i = 0; i < s.length(); i++) {
-                if(Character.isLetterOrDigit(s.charAt(i)))
-                    str += s.charAt(i);
+            if(s.charAt(l) != s.charAt(r)) {
+                return false;
             }
-            str = str.toLowerCase();
-
-            if(str.length() <= 1)
-                return true;
-
-            for(int i = 0; i < str.length()/2; i++) {
-                if(str.charAt(i) != str.charAt(str.length()-1-i))
-                    return false;
-            }
-
-            return true;
+            l++; r--;
+            boolean ans = palin(s, l, r);
+            return ans;
         }
     }
 }
