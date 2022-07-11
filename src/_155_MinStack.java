@@ -1,27 +1,48 @@
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
 public class _155_MinStack {
     class MinStack {
-        LinkedList<Integer> list;
+        ArrayList<Integer> list;
+        Integer min;
+
         public MinStack() {
-            this.list = new LinkedList<Integer>();
+            list = new ArrayList<Integer>();
+            min = null;
         }
 
         public void push(int val) {
-            this.list.push(val);
+            list.add(val);
+            if(min == null) {
+                min = val;
+                return;
+            }
+            if(val < min)
+                min = val;
         }
 
         public void pop() {
-            this.list.pop();
+            int i = list.size()-1;
+            if(min.equals(list.get(i))) {
+                list.remove(i);
+                if(list.size() > 0) {
+                    min = Collections.min(list);
+                }
+                else
+                    min = null;
+            } else {
+                list.remove(i);
+            }
+
         }
 
         public int top() {
-            return list.peek();
+            return list.get(list.size()-1);
         }
 
         public int getMin() {
-            return Collections.min(this.list);
+            return min;
         }
     }
 
