@@ -1,17 +1,13 @@
 public class _26_RemoveDuplicatesfromSortedArray {
     class Solution {
         public int removeDuplicates(int[] nums) {
-            int i = 0, j = 1;
-            while(i < nums.length-1 && j < nums.length) {
-                while(j < nums.length && nums[i] == nums[j] ) {
-                    j++;
-                }
-                if(j < nums.length) {
-                    nums[i+1] = nums[j];
-                    i++;
+            int j = 0;
+            for(int i = 0; i < nums.length; i++) {
+                if(nums[i] != nums[j]) {
+                    nums[++j] = nums[i];
                 }
             }
-            return i+1;
+            return j+1;
         }
     }
 }
