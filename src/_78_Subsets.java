@@ -3,28 +3,25 @@ import java.util.*;
 public class _78_Subsets {
     class Solution {
         public List<List<Integer>> subsets(int[] nums) {
-            return helper(nums, 0);
+            List<List<Integer>> ans = new ArrayList<List<Integer>>();
+            List<Integer> sub = new ArrayList<Integer>();
+            helper(nums, ans, sub, 0);
+            ans.add(sub);
+            return ans;
         }
 
-        private List<List<Integer>> helper(int[] nums, int i) {
+        private void helper(int[] nums, List<List<Integer>> ans, List<Integer> sub, int i) {
+            if(i == nums.length)
+                return;
 
-            if(i == nums.length)  {
-                List<List<Integer>> list = new ArrayList<>();
-                list.add(new ArrayList<Integer>());
-                return list;
-            }
+            sub.add(nums[i]);
+            helper(nums, ans, sub, i+1);
 
-            List<List<Integer>> subAns = helper(nums, i+1);
-            int size = subAns.size();
-            for(int j = 0; j < size; j++) {
-                List<Integer> t = new ArrayList<>(subAns.get(j));
-                t.add(nums[i]);
-                subAns.add(t);
-            }
+            ans.add(new ArrayList<Integer>(sub));
 
-            return subAns;
+            sub.remove(sub.size()-1);
+            helper(nums, ans, sub, i+1);
+
         }
     }
-
-
 }
