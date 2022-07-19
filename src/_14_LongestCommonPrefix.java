@@ -1,21 +1,23 @@
 public class _14_LongestCommonPrefix {
     class Solution {
+        String ans = "";
         public String longestCommonPrefix(String[] strs) {
-            String s = "";
-            if(strs.length == 1)
-                return strs[0];
+            helper(strs, 0, 1);
 
-            for(int i = 0; i < strs[0].length(); i++) {
-                for(int j = 1; j < strs.length; j++) {
-                    if(i == strs[j].length())
-                        return s;
-                    if(strs[0].charAt(i) != strs[j].charAt(i))
-                        return s;
-
-                }
-                s += strs[0].charAt(i);
+            return ans;
+        }
+        private void helper(String[] s, int i, int j) {
+            if(i == s[0].length())
+                return;
+            if(j == s.length) {
+                ans = ans + s[0].charAt(i);
+                helper(s, i+1, 1);
             }
-            return s;
+            if(j < s.length && i < s[j].length() && i < s[0].length() && s[j].charAt(i) == s[0].charAt(i)) {
+                helper(s, i, j+1);
+            }else {
+                return;
+            }
         }
     }
 }
