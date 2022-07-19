@@ -2,27 +2,27 @@ import java.util.*;
 public class _90_SubsetsII {
     class Solution {
         public List<List<Integer>> subsetsWithDup(int[] nums) {
-            HashSet<List<Integer>> set = new HashSet<List<Integer>>();
-            helper(nums, 0, set);
-            return new ArrayList<List<Integer>>(set);
+            List<List<Integer>> ans = new ArrayList<List<Integer>>();
+            List<Integer> sub = new ArrayList<Integer>();
+            Arrays.sort(nums);
+            helper(nums, ans, sub, 0);
+            ans.add(new ArrayList<Integer>());
+            return ans;
         }
 
-        private void helper(int[] nums, int i, HashSet<List<Integer>> set) {
-            if(i == nums.length) {
-                List<Integer> temp = new ArrayList<Integer>();
-                set.add(temp);
+        private void helper(int[] nums, List<List<Integer>> ans, List<Integer> sub, int i) {
+            if(i == nums.length)
                 return;
-            }
 
-            helper(nums, i+1, set);
-            HashSet<List<Integer>> temp = new HashSet<List<Integer>>(set);
+            sub.add(nums[i]);
+            helper(nums, ans, sub, i+1);
 
-            for(List<Integer> x : temp) {
-                List<Integer> cur = new ArrayList<Integer>(x);
-                cur.add(nums[i]);
-                Collections.sort(cur);
-                set.add(cur);
-            }
+            ans.add(new ArrayList<Integer>(sub));
+
+            while(i+1 < nums.length && nums[i] == nums[i+1]) i++;
+
+            sub.remove(sub.size()-1);
+            helper(nums, ans, sub, i+1);
         }
     }
 }
