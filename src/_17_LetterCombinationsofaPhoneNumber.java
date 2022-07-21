@@ -1,51 +1,37 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class _17_LetterCombinationsofaPhoneNumber {
     class Solution {
         public List<String> letterCombinations(String digits) {
-            HashMap<Integer, String> hm = new HashMap<>();
 
-            for(int i = 0; i < digits.length(); i++) {
-                int start = 97;
-                int n = digits.charAt(i) - '0';
-                String t = "";
-                if(n >= 8)
-                    start++;
-                t += (char)((n-2)*3 + start);
-                t += (char)((n-2)*3 + start+1);
-                t += (char)((n-2)*3 + start+2);
-                if(n == 9 || n == 7) {
-                    start++;
-                    t += (char)((n-2)*3 + (start+2));
-                }
-                hm.put(n, t);
-            }
-            List<String> ans = new ArrayList<String>();
-            String sub = "";
-            helper(digits, ans, hm);
+            String[] num = new String[10];
+            num[2] = "abc"; num[3] = "def"; num[4] = "ghi"; num[5] = "jkl"; num[6] = "mno";
+            num[7] = "pqrs"; num[8] = "tuv"; num[9] = "wxyz";
+
+            List<String> ans = helper(digits, num);
             return ans;
         }
-        private void helper(String digits, List<String> ans, HashMap<Integer, String> hm) {
+        private List<String> helper(String digits, String[] num) {
             if(digits.length() == 0)
-                return;
+                return new ArrayList<String>();
             if(digits.length() == 1) {
+                List<String> ans = new ArrayList<String>();
                 int x = digits.charAt(0) - '0';
-                for(int a = 0; a < hm.get(x).length(); a++)
-                    ans.add(hm.get(x).substring(a,a+1));
-                return;
+                for(int a = 0; a < num[x].length(); a++)
+                    ans.add(num[x].substring(a,a+1));
+                return ans;
             }
 
-            helper(digits.substring(1), ans, hm);
-            String temp = hm.get(digits.charAt(0)-'0');
-            int size = ans.size();
+            List<String> subans = helper(digits.substring(1), num);
+            String temp = num[(digits.charAt(0)-'0')];
+
+            List<String> list = new ArrayList<String>();
             for(int j = 0; j < temp.length(); j++)
-                for(int k = 0; k < size; k++) {
-                    ans.add(temp.charAt(j)+ans.get(k));
+                for(String k : subans) {
+                    list.add(temp.charAt(j)+k);
                 }
-            while(size-- > 0)
-                ans.remove(0);
+            return list;
         }
     }
 }
