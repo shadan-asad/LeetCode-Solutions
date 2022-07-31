@@ -2,35 +2,29 @@ import java.util.ArrayDeque;
 
 public class _733_FloodFill {
     class Solution {
-        public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
-            if(image[sr][sc] == newColor)
+        public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+            if(image[sr][sc] == color) {
                 return image;
-
-            ArrayDeque<Integer[]> st = new ArrayDeque<>();
-            int i,j;
-            st.push(new Integer[]{sr,sc});
-
-            while(!st.isEmpty()) {
-                i = st.peek()[0];
-                j = st.peek()[1];
-                st.pop();
-
-                ifConnected(image, i-1,j, sr, sc, newColor, st);
-                ifConnected(image, i+1,j, sr, sc, newColor, st);
-                ifConnected(image, i,j-1, sr, sc, newColor, st);
-                ifConnected(image, i,j+1, sr, sc, newColor, st);
             }
-            image[sr][sc] = newColor;
+            int cur = image[sr][sc];
+            image[sr][sc] = color;
+            if((sr >= 0 && sr < image.length) && (sc-1 >= 0 && sc-1 < image[0].length) &&
+                    image[sr][sc-1] == cur) {
+                floodFill(image, sr, sc-1, color);
+            }
+            if((sr >= 0 && sr < image.length) && (sc+1 >= 0 && sc+1 < image[0].length) &&
+                    image[sr][sc+1] == cur) {
+                floodFill(image, sr, sc+1, color);
+            }
+            if((sr-1 >= 0 && sr-1 < image.length) && (sc >= 0 && sc < image[0].length) &&
+                    image[sr-1][sc] == cur) {
+                floodFill(image, sr-1, sc, color);
+            }
+            if((sr+1 >= 0 && sr+1 < image.length) && (sc >= 0 && sc < image[0].length) &&
+                    image[sr+1][sc] == cur) {
+                floodFill(image, sr+1, sc, color);
+            }
             return image;
-        }
-        public void ifConnected(int[][] image, int i, int j, int sr, int sc, int newColor, ArrayDeque<Integer[]> st) {
-            if(i >= 0 && i < image.length && j >= 0 && j < image[0].length && !(i==sr & j==sc)) {
-
-                if(image[i][j] == image[sr][sc]) {
-                    st.push(new Integer[]{i,j});
-                    image[i][j] = newColor;
-                }
-            }
         }
     }
 }
