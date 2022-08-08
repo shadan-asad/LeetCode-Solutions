@@ -11,20 +11,14 @@ public class _83_RemoveDuplicatesfromSortedList {
      */
     class Solution {
         public ListNode deleteDuplicates(ListNode head) {
-            if(head == null)
-                return head;
-
-            ListNode node = head;
-            while (node.next != null) {
-
-                if(node.val == node.next.val) {
-                    node.next = node.next.next;
-                } else {
-                    node = node.next;
+            ListNode head2 = head;
+            while(head != null) {
+                while(head.next != null && head.val == head.next.val) {
+                    head.next = head.next.next;
                 }
+                head = head.next;
             }
-
-            return head;
+            return head2;
         }
     }
 }
