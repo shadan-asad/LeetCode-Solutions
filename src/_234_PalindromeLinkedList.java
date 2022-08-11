@@ -9,31 +9,46 @@ public class _234_PalindromeLinkedList {
      *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
      * }
      */
+    /**
+     * Definition for singly-linked list.
+     * public class ListNode {
+     *     int val;
+     *     ListNode next;
+     *     ListNode() {}
+     *     ListNode(int val) { this.val = val; }
+     *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+     * }
+     */
     class Solution {
         public boolean isPalindrome(ListNode head) {
-            ListNode slow=head, fast=head;
+            ListNode slow = head, fast = head;
             while(fast != null && fast.next != null) {
                 slow = slow.next;
                 fast = fast.next.next;
             }
+            if(fast != null)
+                slow = slow.next;
 
-            ListNode one = null, two = slow, three;
-            while(two != null) {
-                three = two.next;
-                two.next = one;
-                one = two;
-                two = three;
-            }
+            ListNode head2 = rev(slow);
 
-            while(one != null) {
-                if(one.val != head.val)
+            while(head != null && head2 != null) {
+                if(head.val != head2.val)
                     return false;
-
+                head2 = head2.next;
                 head = head.next;
-                one = one.next;
+            }
+            return true;
+        }
+        private ListNode rev(ListNode h) {
+            ListNode pre = null, cur = h, next;
+            while(cur != null) {
+                next = cur.next;
+                cur.next = pre;
+                pre = cur;
+                cur = next;
             }
 
-            return true;
+            return pre;
         }
     }
 }
