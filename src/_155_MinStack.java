@@ -4,45 +4,43 @@ import java.util.LinkedList;
 
 public class _155_MinStack {
     class MinStack {
-        ArrayList<Integer> list;
-        Integer min;
+
+        class Node {
+            int val, min;
+            Node next;
+
+            Node(int v, int m, Node n) {
+                this.val = v;
+                this.min = m;
+                this.next = n;
+            }
+        }
+
+        Node head;
 
         public MinStack() {
-            list = new ArrayList<Integer>();
-            min = null;
+
         }
 
         public void push(int val) {
-            list.add(val);
-            if(min == null) {
-                min = val;
-                return;
+            if(head == null) {
+                head = new Node(val, val, null);
+            }else {
+                Node t = new Node(val, Math.min(val, head.min), head);
+                head = t;
             }
-            if(val < min)
-                min = val;
         }
 
         public void pop() {
-            int i = list.size()-1;
-            if(min.equals(list.get(i))) {
-                list.remove(i);
-                if(list.size() > 0) {
-                    min = Collections.min(list);
-                }
-                else
-                    min = null;
-            } else {
-                list.remove(i);
-            }
-
+            head = head.next;
         }
 
         public int top() {
-            return list.get(list.size()-1);
+            return head.val;
         }
 
         public int getMin() {
-            return min;
+            return head.min;
         }
     }
 
