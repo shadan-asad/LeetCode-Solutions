@@ -14,27 +14,21 @@ public class _232_ImplementQueueusingStacks {
         }
 
         public int pop() {
-            while(!a.isEmpty())
-                b.push(a.pop());
-            int ans = b.pop();
-            while(!b.isEmpty())
-                a.push(b.pop());
-
-            return ans;
+            peek();
+            return b.pop();
         }
 
         public int peek() {
-            while(!a.isEmpty())
-                b.push(a.pop());
+            if(b.isEmpty())
+                while(!a.isEmpty())
+                    b.push(a.pop());
             int ans = b.peek();
-            while(!b.isEmpty())
-                a.push(b.pop());
 
             return ans;
         }
 
         public boolean empty() {
-            return a.isEmpty();
+            return (a.isEmpty() && b.isEmpty());
         }
     }
 
