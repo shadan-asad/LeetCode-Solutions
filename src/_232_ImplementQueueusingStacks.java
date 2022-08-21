@@ -1,25 +1,40 @@
+import java.util.Stack;
+
 public class _232_ImplementQueueusingStacks {
     class MyQueue {
-        ArrayDeque<Integer> st;
 
+        Stack<Integer> a, b;
         public MyQueue() {
-            st = new ArrayDeque<Integer>();
+            a = new Stack<>();
+            b = new Stack<>();
         }
 
         public void push(int x) {
-            st.add(x);
+            a.push(x);
         }
 
         public int pop() {
-            return st.pop();
+            while(!a.isEmpty())
+                b.push(a.pop());
+            int ans = b.pop();
+            while(!b.isEmpty())
+                a.push(b.pop());
+
+            return ans;
         }
 
         public int peek() {
-            return st.peek();
+            while(!a.isEmpty())
+                b.push(a.pop());
+            int ans = b.peek();
+            while(!b.isEmpty())
+                a.push(b.pop());
+
+            return ans;
         }
 
         public boolean empty() {
-            return st.isEmpty();
+            return a.isEmpty();
         }
     }
 
