@@ -16,23 +16,17 @@ public class _108_ConvertSortedArraytoBinarySearchTree {
      */
     class Solution {
         public TreeNode sortedArrayToBST(int[] nums) {
-            int mid = nums.length/2;
-            TreeNode root = new TreeNode(nums[mid]);
-
-            root.left = func(nums, 0, mid-1);
-            root.right = func(nums, mid+1, nums.length-1);
-
-            return root;
+            return help(nums, 0, nums.length-1);
         }
-        public TreeNode func(int[] arr, int start, int end) {
-            if(start > end)
-                return null;
-
-            int mid = start+(end-start)/2;
-            TreeNode t = new TreeNode(arr[mid]);
-            t.left = func(arr, start, mid-1);
-            t.right = func(arr, mid+1, end);
-            return t;
+        public TreeNode help(int[] arr, int i, int j) {
+            if(i <= j) {
+                int mid = i+(j-i)/2;
+                TreeNode node = new TreeNode(arr[mid]);
+                node.left = help(arr, i, mid-1);
+                node.right = help(arr, mid+1, j);
+                return node;
+            }
+            return null;
         }
     }
 }
